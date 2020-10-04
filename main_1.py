@@ -20,5 +20,3 @@ files.read_docs()
 print(files.docs)
 
 print(DocFiles.read_docs.__doc__)
-
-print(5)

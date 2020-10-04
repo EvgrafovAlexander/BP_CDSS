@@ -1,0 +1,33 @@
+https://www.youtube.com/watch?v=6K83dgjkQNw
+
+Для запуска сервера (сайта):
+1. перейти в папку:
+cd cdss_visual
+2. запустить сервер:
+python3 manage.py runserver
+для остановки сервера:
+ctrl + c
+
+
+Для создания нового приложения:
+python3 manage.py startapp main (main - название приложения)
+и зарегистрировать приложение в settings.py
+
+Стили CSS:
+https://www.bootstrapcdn.com/
+https://getbootstrap.com/
+
+
+Миграции:
+После того как в models.py создан класс для создания таблицы:
+python3 manage.py makemigrations
+Далее - выполнить миграции:
+python3 manage.py migrate
+
+
+Создание суперпользователя:
+python3 manage.py createsuperuser
+user: admin
+pass: admin
+
+Импорт таблицы admin.py

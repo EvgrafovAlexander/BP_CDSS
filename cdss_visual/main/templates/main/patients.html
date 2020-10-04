@@ -1,0 +1,21 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+    <h1>Пациенты</h1>
+    <p>Данные о пациентах</p>
+
+    {% if patients %}
+        {% for element in patients %}
+        <div class="alert alert-warning mt-2">
+            <h3>{{ element.first_name }}</h3>
+            <p>{{ element.last_name }}</p>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>Нет записей</p>
+    {% endif %}
+{% endblock %}
