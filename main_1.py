@@ -1,5 +1,5 @@
 from sql_module import Connection
-from doc_module import DocFiles
+from cdss_visual.main.modules.doc_module import DocFiles
 
 database = Connection('postgres', '12345')
 
