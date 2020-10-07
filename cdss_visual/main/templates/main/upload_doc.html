@@ -1,0 +1,17 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Добавить doc
+{% endblock %}
+
+{% block content %}
+    <h1>Добавить doc</h1>
+
+  <form enctype="multipart/form-data" method="post">
+      {% csrf_token %}
+      {{ form.document }}<br>
+      <button type="submit" class="btn btn-success">Открыть</button>
+  </form>
+
+
+{% endblock %}
