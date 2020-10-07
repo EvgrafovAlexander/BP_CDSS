@@ -127,3 +127,8 @@ class SputumTest(models.Model):
     class Meta:
         verbose_name = "Общий анализ мокроты"
         verbose_name_plural = "Общие анализы мокроты"
+
+
+# документ
+class Document(models.Model):
+    document = models.FileField()
