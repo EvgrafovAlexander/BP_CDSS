@@ -4,7 +4,7 @@ from .forms import PatientsForm, UploadDocumentForm
 
 from django.core.files.storage import FileSystemStorage
 
-from .modules.doc_module import parseDocFile
+from .modules.doc_module import parse_doc_file
 # Create your views here.
 
 
@@ -51,7 +51,7 @@ def upload_doc(request):
             #filename = fs.save(myfile.name, myfile)
             #uploaded_file_url = fs.url(filename)
 
-            data = parseDocFile()
+            data = parse_doc_file(myfile)
             request.session['info'] = data
 
             return redirect('add_patient')
