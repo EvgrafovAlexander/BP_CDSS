@@ -47,13 +47,14 @@ def upload_doc(request):
             #form.save()
 
             myfile = request.FILES['document']
-            fs = FileSystemStorage()
-            filename = fs.save(myfile.name, myfile)
-            uploaded_file_url = fs.url(filename)
+            #fs = FileSystemStorage()
+            #filename = fs.save(myfile.name, myfile)
+            #uploaded_file_url = fs.url(filename)
 
             data = parseDocFile()
+            request.session['info'] = data
 
-            return render(request, 'main/add_patient.html', context=data)
+            return redirect('add_patient')
 
         else:
             return redirect('about')
@@ -61,5 +62,17 @@ def upload_doc(request):
 
 
 def add_patient(request):
-    data = {"first_name": "Hello Django", "last_name": "Welcome to Python"}
-    return render(request, 'main/add_patient.html', context=data)
+    error = ''
+    if request.method == 'POST':
+        form = PatientsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+        else:
+            error = 'Некорректные данные'
+
+    old_post = request.session.get('info')
+
+    form = PatientsForm(old_post)
+    context = {'form': form}
+    return render(request, 'main/create.html', context)
