@@ -1,4 +1,4 @@
-import os, docx
+import os, re, docx
 
 '''
 path = os.getcwd() + '/Patients_data'
@@ -27,5 +27,23 @@ class DocFiles:
             self.docs.append(docx.Document(self.path + '/' + name_of_document))
 
 
-def parseDocFile():
-    return {"first_name": 'Антон', "last_name": 'Семенов'}
+def parse_doc_file_test():
+    return {"first_name": 'Игорь', "last_name": 'Николаев'}
+
+
+def parse_doc_file(doc):
+    # выражение для поиска ФИО
+    pattern = r"[А-Я][а-я]+\s[А-Я][а-я]+\s[А-Я][а-я]+"
+
+    document = docx.Document(doc)
+
+    text = ''
+    for paragraph in document.paragraphs:
+        text += paragraph.text + '\n'
+
+    names = re.findall(pattern, text)[0].split()
+    data = {"first_name": names[1],
+            "last_name": names[0],
+            "middle_name": names[2],
+            }
+    return data
