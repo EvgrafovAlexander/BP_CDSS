@@ -75,4 +75,4 @@ def add_patient(request):
 
     form = PatientsForm(old_post)
     context = {'form': form}
-    return render(request, 'main/create.html', context)
+    return render(request, 'main/add_patient.html', context)
