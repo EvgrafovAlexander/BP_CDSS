@@ -8,11 +8,13 @@
     <h1>Добавить нового</h1>
     <form method="post">
         {% csrf_token %}
-        <label>Имя<br>
+        <label>Имя:<br>
         {{ form.first_name }}<br>
         </label>
 
+        <label>Фамилия:<br>
         {{ form.last_name }}<br>
+        </label>
 
         <button type="submit" class="btn btn-success">Добавить</button>
         <span>{{ error }}</span>
