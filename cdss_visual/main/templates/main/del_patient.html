@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'main/base.html' %}
 
-</body>
-</html>
+{% block title %}
+Удаление пациента
+{% endblock %}
+
+{% block content %}
+    <h1>Удаление пациента</h1>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">Удалить</button>
+    </form>
+{% endblock %}

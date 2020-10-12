@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Patients
 from .forms import PatientsForm, UploadDocumentForm
 
-from django.views.generic import DetailView
+from django.views.generic import DetailView, UpdateView, DeleteView
 
 from .modules.doc_module import parse_doc_file
 # Create your views here.
@@ -12,6 +12,18 @@ class PatientDetailView(DetailView):
     model = Patients
     template_name = 'main/details_view.html'
     context_object_name = 'patient'
+
+
+class PatientUpdateView(UpdateView):
+    model = Patients
+    template_name = 'main/add_patient.html'
+    form_class = PatientsForm
+
+
+class PatientDeleteView(DeleteView):
+    model = Patients
+    template_name = 'main/del_patient.html'
+    success_url = '/patients'
 
 
 def index(request):
