@@ -21,21 +21,6 @@ def patients(request):
     return render(request, 'main/patients.html', {'title':'Данные всех пациентов', 'patients': patients})
 
 
-def create(request):
-    error = ''
-    if request.method == 'POST':
-        form = PatientsForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('home')
-        else:
-            error = 'Некорректные данные'
-
-    form = PatientsForm()
-    context = {'form': form}
-    return render(request, 'main/create.html', context)
-
-
 def upload_doc(request):
     form = UploadDocumentForm()
     return render(request, 'main/upload_doc.html', locals())
@@ -48,6 +33,9 @@ def add_patient(request):
         if 'document' in request.FILES:
             myfile = request.FILES['document']
             data = parse_doc_file(myfile)
+            form = PatientsForm(data)
+            context = {'form': form}
+            return render(request, 'main/add_patient.html', context)
         else:
             form = PatientsForm(request.POST)
             if form.is_valid():
@@ -55,7 +43,7 @@ def add_patient(request):
                 return redirect('patients')
             else:
                 error = 'Некорректные данные'
-
-    form = PatientsForm(data)
+    # прямое открытие пустой формы (без перехода)
+    form = PatientsForm()
     context = {'form': form}
     return render(request, 'main/add_patient.html', context)

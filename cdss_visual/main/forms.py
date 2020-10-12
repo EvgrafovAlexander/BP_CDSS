@@ -8,11 +8,11 @@ class PatientsForm(ModelForm):
         widgets = {
             "first_name": TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Введите ФИО',
+                'placeholder': 'Введите имя',
                 }),
             "last_name": TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Введите ФИО',
+                'placeholder': 'Введите фамилию',
                 }),
         }
 
