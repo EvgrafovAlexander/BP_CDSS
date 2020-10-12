@@ -1,0 +1,13 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Данные о пациенте: {{ patient.last_name }} {{ patient.first_name }}
+{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <h1>{{ patient.first_name }}</h1>
+        <p>{{ patient.last_name }}</p>
+
+    </div>
+{% endblock %}

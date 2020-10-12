@@ -13,6 +13,7 @@
         <div class="alert alert-warning mt-2">
             <h3>{{ element.first_name }}</h3>
             <p>{{ element.last_name }}</p>
+            <a href="{% url 'patient_detail' element.id %}" class="btn btn-warning" >Подробно</a>
         </div>
         {% endfor %}
     {% else %}
