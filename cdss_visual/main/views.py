@@ -1,11 +1,30 @@
 from django.shortcuts import render, redirect
+from django.db.models import Q
 from .models import Patients
 from .forms import PatientsForm, UploadDocumentForm
 
-from django.views.generic import DetailView, UpdateView, DeleteView
+from django.views.generic import DetailView, UpdateView, DeleteView, \
+                                 TemplateView, ListView
 
 from .modules.doc_module import parse_doc_file
 # Create your views here.
+
+
+class SearchView(TemplateView):
+    template_name = 'search.html'
+
+
+class SearchResultsView(ListView):
+    model = Patients
+    template_name = 'search_results.html'
+    context_object_name = 'patient'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        object_list = Patients.objects.filter(
+            Q(first_name__icontains=query) | Q(last_name__icontains=query)
+        )
+        return object_list
 
 
 class PatientDetailView(DetailView):
@@ -36,7 +55,7 @@ def about(request):
 
 def patients(request):
     patients = Patients.objects.all().order_by('-id')
-    return render(request, 'main/patients.html', {'title':'Данные всех пациентов', 'patients': patients})
+    return render(request, 'main/patients.html', {'title': 'Данные всех пациентов', 'patients': patients})
 
 
 def upload_doc(request):

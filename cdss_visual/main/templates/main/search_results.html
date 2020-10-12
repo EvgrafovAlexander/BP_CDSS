@@ -1,0 +1,30 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Результаты поиска
+{% endblock %}
+
+{% block content %}
+<h1>Результаты поиска</h1>
+  {% if object_list %}
+      {% for patient in object_list %}
+      <div class="alert alert-warning mt-2">
+          <h3>{{ patient.first_name }}</h3>
+          <p>{{ patient.last_name }}</p>
+          <a href="{% url 'patient_detail' patient.id %}" class="btn btn-warning" >Подробно</a>
+      </div>
+      {% endfor %}
+  {% else %}
+        <p>Ничего не найдено</p>
+  {% endif %}
+
+
+{% endblock %}
+
+
+
+
+
+
+
+

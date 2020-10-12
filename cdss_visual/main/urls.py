@@ -10,4 +10,7 @@ urlpatterns = [
     path('patients/<int:pk>', views.PatientDetailView.as_view(), name='patient_detail'),
     path('patients/<int:pk>/update', views.PatientUpdateView.as_view(), name='patient_update'),
     path('patients/<int:pk>/delete', views.PatientDeleteView.as_view(), name='patient_delete'),
+
+    path('search/', views.SearchView.as_view(), name='search'),
+    path('search_results/', views.SearchResultsView.as_view(), name='search_results'),
 ]
