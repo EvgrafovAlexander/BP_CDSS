@@ -9,11 +9,11 @@
     <form method="post">
         {% csrf_token %}
         <label>Имя:<br>
-        {{ form.first_name }}<br>
+        {{ patients_form.first_name }}<br>
         </label>
 
         <label>Фамилия:<br>
-        {{ form.last_name }}<br>
+        {{ patients_form.last_name }}<br>
         </label>
 
         <button type="submit" class="btn btn-success">Добавить</button>
