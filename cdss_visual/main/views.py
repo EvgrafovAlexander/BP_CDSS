@@ -37,8 +37,6 @@ class PatientUpdateView(UpdateView):
     model = Patients
     template_name = 'main/add_patient.html'
     form_class = PatientsForm
-    context_object_name = 'patients_form'
-
 
 
 class PatientDeleteView(DeleteView):
@@ -72,19 +70,19 @@ def add_patient(request):
         if 'document' in request.FILES:
             myfile = request.FILES['document']
             data = parse_doc_file(myfile)
-            patients_form = PatientsForm(data['text_data'])
-            context = {'patients_form': patients_form}
+            patients = PatientsForm(data['text_data'])
+            context = {'patients': patients}
             return render(request, 'main/add_patient.html', context)
         else:
-            patients_form = PatientsForm(request.POST)
-            if patients_form.is_valid():
-                patients_form.save()
+            patients = PatientsForm(request.POST)
+            if patients.is_valid():
+                patients.save()
                 return redirect('patients')
             else:
                 error = 'Некорректные данные'
     # прямое открытие пустой формы (без перехода)
-    patients_form = PatientsForm()
-    context = {'patients_form': patients_form}
+    patients = PatientsForm()
+    context = {'patients': patients}
     return render(request, 'main/add_patient.html', context)
 
 
