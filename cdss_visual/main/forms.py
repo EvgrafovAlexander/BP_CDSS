@@ -5,7 +5,7 @@ from django.forms import ModelForm, TextInput, FileInput
 class PatientsForm(ModelForm):
     class Meta:
         model = Patients
-        fields = ["first_name", "last_name"]
+        fields = ["first_name", "last_name", "middle_name"]
         widgets = {
             "first_name": TextInput(attrs={
                 'class': 'form-control',
@@ -15,6 +15,10 @@ class PatientsForm(ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Введите фамилию',
                 }),
+            "middle_name": TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите отчество',
+            }),
         }
 
 

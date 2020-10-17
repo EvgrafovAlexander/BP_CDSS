@@ -6,8 +6,9 @@
 
 {% block content %}
     <div class="features">
-        <h1>{{ patient.first_name }}</h1>
-        <p>{{ patient.last_name }}</p>
+        <h1>{{ patient.last_name }}</h1>
+        <p>{{ patient.first_name }}</p>
+        <p>{{ patient.middle_name }}</p>
 
         <a href="{% url 'patient_update' patient.id %}" class="btn btn-info">Изменить</a>
         <a href="{% url 'patient_delete' patient.id %}" class="btn btn-danger">Удалить</a>

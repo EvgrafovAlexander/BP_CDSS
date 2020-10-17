@@ -8,12 +8,16 @@
     <h1>Добавить нового</h1>
     <form method="post">
         {% csrf_token %}
+        <label>Фамилия:<br>
+        {{ patients_form.last_name }}<br>
+        </label>
+
         <label>Имя:<br>
         {{ patients_form.first_name }}<br>
         </label>
 
-        <label>Фамилия:<br>
-        {{ patients_form.last_name }}<br>
+        <label>Отчество:<br>
+        {{ patients_form.middle_name }}<br>
         </label>
 
         <button type="submit" class="btn btn-success">Добавить</button>
