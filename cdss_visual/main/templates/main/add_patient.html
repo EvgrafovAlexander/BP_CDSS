@@ -10,15 +10,19 @@
         {% csrf_token %}
         <label>Фамилия:<br>
         {{ patients_form.last_name }}<br>
-        </label>
+        </label><br>
 
         <label>Имя:<br>
         {{ patients_form.first_name }}<br>
-        </label>
+        </label><br>
 
         <label>Отчество:<br>
         {{ patients_form.middle_name }}<br>
-        </label>
+        </label><br>
+
+        <label>Дата рождения:<br>
+        {{ patients_form.date_of_birth }}<br>
+        </label><br>
 
         <button type="submit" class="btn btn-success">Добавить</button>
         <span>{{ error }}</span>

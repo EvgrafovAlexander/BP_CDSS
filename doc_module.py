@@ -28,6 +28,9 @@ class DocFiles:
 
 
 path = "C:\\Users\\Arthur\\Bronchopulmonary_system\\raw_data_doc\\patient_18.docx"
+
+path = "/Users/needmoredata/Documents/Programming/Repositories/pycharm_prj/BP_CDSS/Patients_data/patient_18.docx"
+
 doc = docx.Document(path)
 
 

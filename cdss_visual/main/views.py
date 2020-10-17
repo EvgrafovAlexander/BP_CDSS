@@ -37,6 +37,8 @@ class PatientUpdateView(UpdateView):
     model = Patients
     template_name = 'main/add_patient.html'
     form_class = PatientsForm
+    context_object_name = 'patients_form'
+
 
 
 class PatientDeleteView(DeleteView):

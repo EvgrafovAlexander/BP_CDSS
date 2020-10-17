@@ -1,11 +1,11 @@
 from .models import Patients, Document
-from django.forms import ModelForm, TextInput, FileInput
+from django.forms import ModelForm, TextInput, FileInput, DateInput
 
 
 class PatientsForm(ModelForm):
     class Meta:
         model = Patients
-        fields = ["first_name", "last_name", "middle_name"]
+        fields = ["first_name", "last_name", "middle_name", "date_of_birth"]
         widgets = {
             "first_name": TextInput(attrs={
                 'class': 'form-control',
@@ -18,6 +18,12 @@ class PatientsForm(ModelForm):
             "middle_name": TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Введите отчество',
+            }),
+            "date_of_birth": DateInput(format=('%d-%m-%Y'),
+                 attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите дату рождения',
+                'type': 'date'
             }),
         }
 

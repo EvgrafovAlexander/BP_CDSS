@@ -9,6 +9,7 @@
         <h1>{{ patient.last_name }}</h1>
         <p>{{ patient.first_name }}</p>
         <p>{{ patient.middle_name }}</p>
+        <p>{{ patient.date_of_birth }}</p>
 
         <a href="{% url 'patient_update' patient.id %}" class="btn btn-info">Изменить</a>
         <a href="{% url 'patient_delete' patient.id %}" class="btn btn-danger">Удалить</a>
