@@ -70,19 +70,19 @@ def add_patient(request):
         if 'document' in request.FILES:
             myfile = request.FILES['document']
             data = parse_doc_file(myfile)
-            patients = PatientsForm(data['text_data'])
-            context = {'patients': patients}
+            patients_form = PatientsForm(data['text_data'])
+            context = {'form': patients_form}
             return render(request, 'main/add_patient.html', context)
         else:
-            patients = PatientsForm(request.POST)
-            if patients.is_valid():
-                patients.save()
+            patients_form = PatientsForm(request.POST)
+            if patients_form.is_valid():
+                patients_form.save()
                 return redirect('patients')
             else:
                 error = 'Некорректные данные'
     # прямое открытие пустой формы (без перехода)
-    patients = PatientsForm()
-    context = {'patients': patients}
+    patients_form = PatientsForm()
+    context = {'form': patients_form}
     return render(request, 'main/add_patient.html', context)
 
 

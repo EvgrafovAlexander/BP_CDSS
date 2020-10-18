@@ -9,19 +9,19 @@
     <form method="post">
         {% csrf_token %}
         <label>Фамилия:<br>
-        {{ patients.last_name }}<br>
+        {{ form.last_name }}<br>
         </label><br>
 
         <label>Имя:<br>
-        {{ patients.first_name }}<br>
+        {{ form.first_name }}<br>
         </label><br>
 
         <label>Отчество:<br>
-        {{ patients.middle_name }}<br>
+        {{ form.middle_name }}<br>
         </label><br>
 
         <label>Дата рождения:<br>
-        {{ patients.date_of_birth }}<br>
+        {{ form.date_of_birth }}<br>
         </label><br>
 
         <button type="submit" class="btn btn-success">Добавить</button>
