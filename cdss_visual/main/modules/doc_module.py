@@ -1,4 +1,4 @@
-import os, re, docx
+import os, re, docx, datetime
 
 
 def parse_doc_file(doc):
@@ -25,5 +25,6 @@ def get_text_data(document):
     text_data["last_name"] = names[0]
     text_data["first_name"] = names[1]
     text_data["middle_name"] = names[2]
+    text_data["date_of_birth"] = datetime.datetime.strptime("21.11.1986", '%d.%m.%Y').date()
 
     return text_data
