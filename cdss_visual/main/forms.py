@@ -19,11 +19,11 @@ class PatientsForm(ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Введите отчество',
             }),
-            "date_of_birth": DateInput(format=('%d-%m-%Y'),
+            "date_of_birth": DateInput(format=('%d.%m.%Y'),
                  attrs={
                 'class': 'form-control',
                 'placeholder': 'Введите дату рождения',
-                'type': 'date'
+                'type': 'text'
             }),
         }
 
