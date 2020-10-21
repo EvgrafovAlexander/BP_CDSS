@@ -1,4 +1,4 @@
-import os, docx
+import os, docx, datetime
 import pandas as pd
 
 '''
@@ -27,9 +27,9 @@ class DocFiles:
             self.docs.append(docx.Document(self.path + '/' + name_of_document))
 
 
-path = "C:\\Users\\Arthur\\Bronchopulmonary_system\\raw_data_doc\\patient_18.docx"
+path = "C:\\Users\\Arthur\\Bronchopulmonary_system\\raw_data_doc\\patient_1.docx"
 
-path = "/Users/needmoredata/Documents/Programming/Repositories/pycharm_prj/BP_CDSS/Patients_data/patient_18.docx"
+#path = "/Users/needmoredata/Documents/Programming/Repositories/pycharm_prj/BP_CDSS/Patients_data/patient_18.docx"
 
 doc = docx.Document(path)
 
@@ -88,33 +88,50 @@ def get_dict_tables_from_doc(doc):
 
 #print(get_dict_tables_from_doc(doc)['BCT'])
 
-print(doc)
+#print(doc)
 
 text = ''
 for paragraph in doc.paragraphs:
     text += paragraph.text + '\n'
 
-print(text)
+#print(text)
 import re
 
 
 def find_date_between_sections(re_sec1, re_sec2, text):
-    re_list = [
-        '\d\d.\d\d.\d\d\d\d',
-        '\d\d.\d\d.\d\d',
-        '\d\d\d\d',
-        '\d\d'
-    ]
-    sec1 = re.search(re_sec1, text)
-    sec2 = re.search(re_sec2, text)
+    # ищем позиции тегов в тексте
+    beg_point = re.search(re_sec1, text)
+    end_point = re.search(re_sec2, text)
 
-    matches = []
-    for reg_exp in re_list:
-        matches += re.findall(reg_exp, text[sec1.end():sec2.start()])
+    matches = re.findall(r'\d\d.\d\d.\d\d\d\d', text[beg_point.end():end_point.start()])
+    if matches:
+        return datetime.datetime.strptime(matches[0], '%d.%m.%Y').date()
 
-    return list(map(int, matches[0].split('.')))
+    matches = re.findall(r'\d\d.\d\d.\d\d', text[beg_point.end():end_point.start()])
+    if matches:
+        day_mon = matches[0][:-2]
+        year = matches[0][-2:]
+        if int(year) > 35:
+            year = '19' + matches[0][-2:]
+        else:
+            year = '20' + matches[0][-2:]
+        return datetime.datetime.strptime(day_mon + year, '%d.%m.%Y').date()
 
+    matches = re.findall(r'\d\d\d\d', text[beg_point.end():end_point.start()])
+    if matches:
+        return datetime.datetime.strptime('01.01.' + matches[0], '%d.%m.%Y').date()
+
+    matches = re.findall(r'\d\d', text[beg_point.end():end_point.start()])
+    if matches:
+        year = matches[0]
+        if int(year) > 35:
+            year = '19' + matches[0]
+        else:
+            year = '20' + matches[0]
+        return datetime.datetime.strptime('01.01.' + year, '%d.%m.%Y').date()
+
+    return datetime.datetime.strptime("01.01.1900", '%d.%m.%Y').date()
 
 print(find_date_between_sections(r'Дата рождения:', r'Дата поступления в стационар:', text))
-#print(find_date_between_sections(r'Дата поступления в стационар', r'Дата выписки из стационара', text))
-#print(find_date_between_sections(r'Дата выписки из стационара', r'Полный диагноз', text))
+print(find_date_between_sections(r'Дата поступления в стационар', r'Дата выписки из стационара', text))
+print(find_date_between_sections(r'Дата выписки из стационара', r'Полный диагноз', text))
