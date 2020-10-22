@@ -35,6 +35,11 @@ def get_text_data(document):
     text_data["discharge_date"] = get_date_between_sections(r'Дата выписки из стационара',
                                                             r'Полный диагноз',
                                                             text)
+
+    text_data["base_diag"] = get_diagnosis('base', text)
+    text_data["complication_diag"] = get_diagnosis('complication', text)
+    text_data["accompanying_diag"] = get_diagnosis('accompanying', text)
+
     return text_data
 
 
@@ -71,4 +76,39 @@ def get_date_between_sections(beg_sec, end_sec, text):
         return datetime.datetime.strptime('01.01.' + year, '%d.%m.%Y').date()
 
     return datetime.datetime.strptime("01.01.1900", '%d.%m.%Y').date()
+
+
+def get_diagnosis(diag, text):
+    diag_sec = {'base':
+                [[r'Основной:', r'Осложнение:'],
+                 [r'Основной:', r'Осложнения:'],
+                 [r'Основной:', r'Сопутствующий:'],
+                 [r'Основной:', r'Сопутствующие:'],
+                 [r'Основной:', r'Госпитализирован'],
+                 [r'Основной:', r'Диагностические'],],
+                'complication':
+                [[r'Осложнение:', r'Сопутствующий:'],
+                 [r'Осложнение:', r'Сопутствующие:'],
+                 [r'Осложнения:', r'Сопутствующий:'],
+                 [r'Осложнения:', r'Сопутствующие:'],
+                 [r'Осложнение:', r'Госпитализирован'],
+                 [r'Осложнение:', r'Диагностические'],],
+                'accompanying':
+                [[r'Сопутствующий:', r'Госпитализирован'],
+                 [r'Сопутствующий:', r'Диагностические'],],
+                }
+    for point in diag_sec[diag]:
+        diagnosis_text = find_text_between_sections(point[0], point[1], text)
+        if diagnosis_text:
+            return diagnosis_text
+    return 'Нет'
+
+
+def find_text_between_sections(re_sec1, re_sec2, text):
+    beg_point = re.search(re_sec1, text)
+    end_point = re.search(re_sec2, text)
+    if beg_point and end_point:
+        return text[beg_point.end():end_point.start()]
+    else:
+        return None
 
