@@ -27,7 +27,7 @@ class DocFiles:
             self.docs.append(docx.Document(self.path + '/' + name_of_document))
 
 
-path = "C:\\Users\\Arthur\\Bronchopulmonary_system\\raw_data_doc\\patient_1.docx"
+path = "C:\\Users\\Arthur\\Bronchopulmonary_system\\raw_data_doc\\patient_6.docx"
 
 #path = "/Users/needmoredata/Documents/Programming/Repositories/pycharm_prj/BP_CDSS/Patients_data/patient_18.docx"
 
@@ -94,7 +94,7 @@ text = ''
 for paragraph in doc.paragraphs:
     text += paragraph.text + '\n'
 
-#print(text)
+print(text)
 import re
 
 
@@ -132,6 +132,58 @@ def find_date_between_sections(re_sec1, re_sec2, text):
 
     return datetime.datetime.strptime("01.01.1900", '%d.%m.%Y').date()
 
-print(find_date_between_sections(r'Дата рождения:', r'Дата поступления в стационар:', text))
-print(find_date_between_sections(r'Дата поступления в стационар', r'Дата выписки из стационара', text))
-print(find_date_between_sections(r'Дата выписки из стационара', r'Полный диагноз', text))
+
+
+
+
+
+
+def get_diagnosis(diag, text):
+    diag_sec = {'base':
+                [[r'Основной:', r'Осложнение:'],
+                 [r'Основной:', r'Осложнения:'],
+                 [r'Основной:', r'Сопутствующий:'],
+                 [r'Основной:', r'Сопутствующие:'],
+                 [r'Основной:', r'Госпитализирован'],
+                 [r'Основной:', r'Диагностические'],],
+                'complication':
+                [[r'Осложнение:', r'Сопутствующий:'],
+                 [r'Осложнение:', r'Сопутствующие:'],
+                 [r'Осложнения:', r'Сопутствующий:'],
+                 [r'Осложнения:', r'Сопутствующие:'],
+                 [r'Осложнение:', r'Госпитализирован'],
+                 [r'Осложнение:', r'Диагностические'],],
+                'accompanying':
+                [[r'Сопутствующий:', r'Госпитализирован'],
+                 [r'Сопутствующий:', r'Диагностические'],],
+                }
+    for point in diag_sec[diag]:
+        diagnosis_text = find_text_between_sections(point[0], point[1], text)
+        if diagnosis_text:
+            return diagnosis_text
+    return 'Нет'
+
+
+def find_text_between_sections(re_sec1, re_sec2, text):
+    beg_point = re.search(re_sec1, text)
+    end_point = re.search(re_sec2, text)
+    if beg_point and end_point:
+        return text[beg_point.end():end_point.start()]
+    else:
+        return None
+
+
+#print(find_date_between_sections(r'Дата рождения:', r'Дата поступления в стационар:', text))
+#print(find_date_between_sections(r'Дата поступления в стационар', r'Дата выписки из стационара', text))
+#print(find_date_between_sections(r'Дата выписки из стационара', r'Полный диагноз', text))
+
+print(get_diagnosis('base', text))
+print(get_diagnosis('complication', text))
+print(get_diagnosis('accompanying', text))
+'''
+dict1 = {"first": 'f', "second": 's'}
+dict2 = {"third": 't', "fourth": 'fs'}
+dict1.update(dict2)
+print(dict1)
+'''
+
