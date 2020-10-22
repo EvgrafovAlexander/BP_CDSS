@@ -27,7 +27,7 @@ class DocFiles:
             self.docs.append(docx.Document(self.path + '/' + name_of_document))
 
 
-path = "C:\\Users\\Arthur\\Bronchopulmonary_system\\raw_data_doc\\patient_6.docx"
+path = "C:\\Users\\Arthur\\Bronchopulmonary_system\\raw_data_doc\\patient_1.docx"
 
 #path = "/Users/needmoredata/Documents/Programming/Repositories/pycharm_prj/BP_CDSS/Patients_data/patient_18.docx"
 
@@ -94,7 +94,7 @@ text = ''
 for paragraph in doc.paragraphs:
     text += paragraph.text + '\n'
 
-print(text)
+#print(text)
 import re
 
 
@@ -177,13 +177,57 @@ def find_text_between_sections(re_sec1, re_sec2, text):
 #print(find_date_between_sections(r'Дата поступления в стационар', r'Дата выписки из стационара', text))
 #print(find_date_between_sections(r'Дата выписки из стационара', r'Полный диагноз', text))
 
-print(get_diagnosis('base', text))
-print(get_diagnosis('complication', text))
-print(get_diagnosis('accompanying', text))
+#print(get_diagnosis('base', text))
+#print(get_diagnosis('complication', text))
+#print(get_diagnosis('accompanying', text))
 '''
 dict1 = {"first": 'f', "second": 's'}
 dict2 = {"third": 't', "fourth": 'fs'}
 dict1.update(dict2)
 print(dict1)
 '''
+
+
+def get_tables_data(document):
+    tables_data = dict()
+    for table in document.tables:
+        table_name = table.rows[0].cells[0].text
+        if 'ОАК' in table_name:
+            tables_data.update(get_models_from('cbc_table', table))
+        elif 'ОАМ' in table_name:
+            tables_data.update(get_models_from('cut_table', table))
+        elif 'Б/Х' in table_name:
+            tables_data.update(get_models_from('bba_table', table))
+        elif 'Коагулограмма' in table_name:
+            tables_data.update(get_models_from('cgt_table', table))
+        elif 'Мокрота' in table_name:
+            tables_data.update(get_models_from('stt_table', table))
+    return tables_data
+
+
+def get_models_from(table_name, table):
+    table_desc = {'cbc_table':
+                  [['date_cbc', 'date'],
+                   ['rbc_cbc', 'num'],
+                   ['hb_cbc', 'num'],
+                   ['wbc_cbc', 'num'],
+                   ['mchc_cbc', 'num'],
+                   ['esr_cbc', 'num'],
+                   ['eos_cbc', 'num'],
+                   ['stab_cbc', 'num'],
+                   ['segm_cbc', 'num'],
+                   ['lym_cbc', 'num'],
+                   ['mon_cbc', 'num'],
+                   ['bas_cbc', 'num'],
+                   ['rpr_cbc', 'text'],
+                   ['young_cbc', 'num'],]
+                  }
+
+    return {table_name: {}}
+
+
+
+print(get_tables_data(doc))
+
+
 
