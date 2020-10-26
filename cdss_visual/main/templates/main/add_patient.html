@@ -24,6 +24,26 @@
         {{ form.date_of_birth }}<br>
         </label><br>
 
+        <label>Дата поступления в стационар:<br>
+        {{ form.receipt_date }}<br>
+        </label><br>
+
+        <label>Дата выписки из стационара:<br>
+        {{ form.discharge_date }}<br>
+        </label><br>
+
+        <label>Основной диагноз:<br>
+        {{ form.base_diag }}<br>
+        </label><br>
+
+        <label>Осложнения:<br>
+        {{ form.complication_diag }}<br>
+        </label><br>
+
+        <label>Сопутствующие заболевания:<br>
+        {{ form.accompanying_diag }}<br>
+        </label><br>
+
         <button type="submit" class="btn btn-success">Добавить</button>
         <span>{{ error }}</span>
     </form>

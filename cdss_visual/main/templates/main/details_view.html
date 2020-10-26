@@ -6,10 +6,16 @@
 
 {% block content %}
     <div class="features">
-        <h1>{{ patient.last_name }}</h1>
-        <p>{{ patient.first_name }}</p>
-        <p>{{ patient.middle_name }}</p>
-        <p>{{ patient.date_of_birth }}</p>
+        <h1>Фамилия: {{ patient.last_name }}</h1>
+        <p>Имя: {{ patient.first_name }}</p>
+        <p>Отчество: {{ patient.middle_name }}</p>
+        <p>Дата рождения: {{ patient.date_of_birth }}</p>
+        <p>Дата поступления в стационар: {{ patient.receipt_date }}</p>
+        <p>Дата выписки из стационара: {{ patient.discharge_date }}</p>
+        <p>Основной диагноз: {{ patient.base_diag }}</p>
+        <p>Осложнения: {{ patient.complication_diag }}</p>
+        <p>Сопутствующие заболевания: {{ patient.accompanying_diag }}</p>
+
 
         <a href="{% url 'patient_update' patient.id %}" class="btn btn-info">Изменить</a>
         <a href="{% url 'patient_delete' patient.id %}" class="btn btn-danger">Удалить</a>
