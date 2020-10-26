@@ -9,13 +9,17 @@ class Patients(models.Model):
     last_name = models.CharField('Фамилия', max_length=50)
     middle_name = models.CharField('Отчество', max_length=50, null=True)
     date_of_birth = models.DateField('Дата рождения', null=True)
+    receipt_date = models.DateField('Дата поступления', null=True)
+    discharge_date = models.DateField('Дата выписки', null=True)
+    base_diag = models.TextField('Основной диагноз', null=True)
+    complication_diag = models.TextField('Осложнения', null=True)
+    accompanying_diag = models.TextField('Сопутствующий', null=True)
 
     def __str__(self):
         return self.first_name
 
     def get_absolute_url(self):
         return f'/patients/{self.id}'
-
 
     class Meta:
         verbose_name = "Пациент"
