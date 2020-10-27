@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from .models import Patients
-from .forms import PatientsForm, UploadDocumentForm
+from .forms import PatientsForm, UploadDocumentForm, CompleteBloodCountForm
 
 from django.views.generic import DetailView, UpdateView, DeleteView, \
                                  TemplateView, ListView
@@ -71,7 +71,8 @@ def add_patient(request):
             myfile = request.FILES['document']
             data = parse_doc_file(myfile)
             patients_form = PatientsForm(data['text_data'])
-            context = {'form': patients_form}
+            cbc_table_form = CompleteBloodCountForm(data['cbc_table'])
+            context = {'form': patients_form, 'form_cbc': cbc_table_form}
             return render(request, 'main/add_patient.html', context)
         else:
             patients_form = PatientsForm(request.POST)

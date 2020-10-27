@@ -1,4 +1,4 @@
-from .models import Patients, Document
+from .models import Patients, Document, CompleteBloodCount
 from django.forms import ModelForm, TextInput, FileInput, DateInput, Textarea
 
 
@@ -58,6 +58,20 @@ class PatientsForm(ModelForm):
                 'cols': 30,
             }),
 
+        }
+
+
+class CompleteBloodCountForm(ModelForm):
+    class Meta:
+        model = CompleteBloodCount
+        fields = ["date_cbc", ]
+        widgets = {
+            "date_cbc": DateInput(format=('%d.%m.%Y'),
+                                       attrs={
+                                            'class': 'form-control',
+                                            'placeholder': 'Введите дату анализа',
+                                            'type': 'text'
+                                        }),
         }
 
 

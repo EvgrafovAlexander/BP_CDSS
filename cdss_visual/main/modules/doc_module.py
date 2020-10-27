@@ -6,6 +6,7 @@ def parse_doc_file(doc):
     document = docx.Document(doc)
 
     data['text_data'] = get_text_data(document)
+    data['cbc_table'] = get_cbc_table(document)
 
     return data
 
@@ -112,3 +113,8 @@ def find_text_between_sections(re_sec1, re_sec2, text):
     else:
         return None
 
+
+def get_cbc_table(document):
+    table_data = dict()
+    table_data['date_cbc'] = datetime.datetime.strptime("01.01.1900", '%d.%m.%Y').date()
+    return table_data
